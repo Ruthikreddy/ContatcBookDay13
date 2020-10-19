@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 
@@ -28,7 +28,7 @@ namespace AddressBook
                     //Add the name of the new book to be created
                     NameofBook = Console.ReadLine();
                     //Create new List for each new Address Book
-                    List<Contact> clist = new List<Contact>(); 
+                    List<Contact> clist = new List<Contact>();
                     dict.Add(NameofBook, clist);//Add book name as Key and List as value
                 }
                 if (ch == 2)//To add to existing book
@@ -62,9 +62,11 @@ namespace AddressBook
                 Console.WriteLine("2. Display contacts");
                 Console.WriteLine("3. Edit the contact");
                 Console.WriteLine("4. Delete a contact");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Enter the city to display contacts living in it");
+                Console.WriteLine("6. Display contacts city wise");
+                Console.WriteLine("7. Exit");
                 choice_one = Convert.ToInt32(Console.ReadLine());
-                
+
 
                 switch (choice_one)
                 {
@@ -112,7 +114,7 @@ namespace AddressBook
                     /// <summary>
                     /// Displays the entire address Book
                     /// </summary>
-                    case 2: 
+                    case 2:
                         foreach (Contact o in ContList)
                         {
                             Console.WriteLine(o.toString());
@@ -130,30 +132,30 @@ namespace AddressBook
                         {
                             if (Object.getFname().Equals(name))
                             {
-                                    Console.WriteLine("Enter the new First name");
-                                    f_name = Console.ReadLine();
-                                    Object.setFname(f_name);
-                                    Console.WriteLine("Enter the new Last name");
-                                    l_name = Console.ReadLine();
-                                    Object.setLname(l_name);
-                                    Console.WriteLine("Enter the address");
-                                    adrs = Console.ReadLine();
-                                    Object.setAdd(adrs);
-                                    Console.WriteLine("Enter the new City");
-                                    cty = Console.ReadLine();
-                                    Object.setCity(cty);
-                                    Console.WriteLine("Enter the new State");
-                                    st = Console.ReadLine();
-                                    Object.setState(st);
-                                    Console.WriteLine("Enter the new Zip code");
-                                    zp = Convert.ToInt64(Console.ReadLine());
-                                    Object.setZip(zp);                         
-                                    Console.WriteLine("Enter the new Phone Number");
-                                    phNo = Convert.ToInt64(Console.ReadLine());
-                                    Object.setPhoneNo(phNo);
-                                    Console.WriteLine("Enter the new EmailId");
-                                    emailId = Console.ReadLine();
-                                    Object.setEmailId(emailId);
+                                Console.WriteLine("Enter the new First name");
+                                f_name = Console.ReadLine();
+                                Object.setFname(f_name);
+                                Console.WriteLine("Enter the new Last name");
+                                l_name = Console.ReadLine();
+                                Object.setLname(l_name);
+                                Console.WriteLine("Enter the address");
+                                adrs = Console.ReadLine();
+                                Object.setAdd(adrs);
+                                Console.WriteLine("Enter the new City");
+                                cty = Console.ReadLine();
+                                Object.setCity(cty);
+                                Console.WriteLine("Enter the new State");
+                                st = Console.ReadLine();
+                                Object.setState(st);
+                                Console.WriteLine("Enter the new Zip code");
+                                zp = Convert.ToInt64(Console.ReadLine());
+                                Object.setZip(zp);
+                                Console.WriteLine("Enter the new Phone Number");
+                                phNo = Convert.ToInt64(Console.ReadLine());
+                                Object.setPhoneNo(phNo);
+                                Console.WriteLine("Enter the new EmailId");
+                                emailId = Console.ReadLine();
+                                Object.setEmailId(emailId);
                             }
                             else
                                 Console.WriteLine("Entered First Name is Not Present");
@@ -182,6 +184,54 @@ namespace AddressBook
                         if (flag)
                         {
                             Console.WriteLine("Contacts deleted");
+                        }
+                        break;
+                    /// <summary>
+                    /// UC8
+                    /// Ability to search Person in a City or state across the multiple AddressBook - Search Result can show multiple person
+                    /// </summary>
+                    case 5:
+                        Console.WriteLine("Enter the state and city for displaying contacts");
+                        string Sity;
+                        string stte;
+                        stte = Console.ReadLine();
+                        Sity = Console.ReadLine();
+                        foreach (Contact c in ContList)
+                        {
+                            if (c.getCity().ToLower().Equals(Sity.ToLower())|| c.getCity().ToLower().Equals(stte.ToLower()))
+                            {
+                                Console.WriteLine(c.getFname() + " " + c.getLname());
+                            }
+                        }
+                        break;
+                    /// <summary>
+                    /// UC10
+                    /// Ability to Count Persons by City Maintain Dictionary of City and Person
+                    /// </summary>
+                    case 6:
+                        Console.WriteLine("Displaying the count city wise");
+                        Dictionary<string, int> sT = new Dictionary<string, int>();
+                        HashSet<string> states = new HashSet<string>();
+                        foreach (Contact p in ContList)
+                        {
+                            states.Add(p.getState());
+                        }
+                        foreach (string s in states)
+                        {
+                            List<string> temp = new List<string>();
+                            foreach (Contact c in ContList)
+                            {
+                                if (s.ToLower().Equals(c.getState()))
+                                {
+                                    temp.Add(c.getFname() + " " + c.getLname());
+                                }
+                            }
+                            int count = temp.Count;
+                            sT.Add(s, count);
+                        }
+                        foreach (KeyValuePair<string, int> kv in sT)
+                        {
+                            Console.WriteLine("The number of persons in {0} is {1} ", kv.Key, kv.Value);
                         }
                         break;
                     default:
