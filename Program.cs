@@ -63,7 +63,8 @@ namespace AddressBook
                 Console.WriteLine("3. Edit the contact");
                 Console.WriteLine("4. Delete a contact");
                 Console.WriteLine("5. Enter the city to display contacts living in it");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Display contacts city wise");
+                Console.WriteLine("7. Exit");
                 choice_one = Convert.ToInt32(Console.ReadLine());
 
 
@@ -200,6 +201,41 @@ namespace AddressBook
                             if (c.getCity().ToLower().Equals(Sity.ToLower())|| c.getCity().ToLower().Equals(stte.ToLower()))
                             {
                                 Console.WriteLine(c.getFname() + " " + c.getLname());
+                            }
+                        }
+                        break;
+                    /// <summary>
+                    /// UC9
+                    /// Ability to view Persons by City Maintain Dictionary of City and Person
+                    /// </summary>
+                    case 6:
+                        Console.WriteLine("Displaying contacts city wise");
+                        Dictionary<string, List<string>> sT = new Dictionary<string, List<string>>();
+                        HashSet<string> states = new HashSet<string>();
+                        foreach (Contact p in ContList)
+                        {
+                            states.Add(p.getState());
+                        }
+                        foreach (string s in states)
+                        {
+                            List<string> temp = new List<string>();
+                            foreach (Contact c in ContList)
+                            {
+                                if (s.ToLower().Equals(c.getState()))
+                                {
+                                    temp.Add(c.getFname() + " " + c.getLname());
+                                }
+                            }
+                            sT.Add(s, temp);
+                        }
+                        foreach (var contents in sT.Keys)
+                        {
+                            Console.WriteLine("State: " + contents);
+                            Console.WriteLine("Contacts are...");
+
+                            foreach (var listMember in sT[contents])
+                            {
+                                Console.WriteLine(" member :" + listMember);
                             }
                         }
                         break;
