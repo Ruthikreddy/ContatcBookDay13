@@ -62,7 +62,8 @@ namespace AddressBook
                 Console.WriteLine("2. Display contacts");
                 Console.WriteLine("3. Edit the contact");
                 Console.WriteLine("4. Delete a contact");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Enter the city to display contacts living in it");
+                Console.WriteLine("6. Exit");
                 choice_one = Convert.ToInt32(Console.ReadLine());
 
 
@@ -182,6 +183,24 @@ namespace AddressBook
                         if (flag)
                         {
                             Console.WriteLine("Contacts deleted");
+                        }
+                        break;
+                    /// <summary>
+                    /// UC8
+                    /// Ability to search Person in a City or state across the multiple AddressBook - Search Result can show multiple person
+                    /// </summary>
+                    case 5:
+                        Console.WriteLine("Enter the state and city for displaying contacts");
+                        string Sity;
+                        string stte;
+                        stte = Console.ReadLine();
+                        Sity = Console.ReadLine();
+                        foreach (Contact c in ContList)
+                        {
+                            if (c.getCity().ToLower().Equals(Sity.ToLower())|| c.getCity().ToLower().Equals(stte.ToLower()))
+                            {
+                                Console.WriteLine(c.getFname() + " " + c.getLname());
+                            }
                         }
                         break;
                     default:
