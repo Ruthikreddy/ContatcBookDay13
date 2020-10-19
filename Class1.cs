@@ -1,82 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Transactions;
 
-
-class AddressBook
+namespace AddressBook
 {
-    List<Address> addresses;
+    class Contact
+    {
 
-    public AddressBook()
-    {
-        addresses = new List<Address >();
-    }
-    /// <summary>
-    /// It will check for duplicates and adds the contatct to address book
-    /// </summary>
-    /// <param name="Firstname"></param>
-    /// <param name="Lastname"></param>
-    /// <param name="address"></param>
-    /// <param name="city"></param>
-    /// <param name="state"></param>
-    /// <param name="zip"></param>
-    /// <param name="phoneNo"></param>
-    /// <param name="email"></param>
-    /// <returns></returns>
-    public bool add(string Firstname, string Lastname, string address, string city, string state, int zip, double phoneNo, string email)
-    {
-        Address  addr = new Address (Firstname, Lastname,address,city,state,zip,phoneNo,email);
-        Address  result = find(Firstname);
+        private string fname;
+        private string lname;
+        private string address;
+        private string city;
+        private string state;
+        private long zip;
+        private long phoneNo;
+        private string emailId;
 
-        if (result == null)
+        public Contact(string fname, string lname, string address, string city, string state, long zip, long phoneNo, string emailId)
         {
-            addresses.Add(addr);
-            return true;
+            this.fname = fname;
+            this.lname = lname;
+            this.address = address;
+            this.city = city;
+            this.state = state;
+            this.zip = zip;
+            this.phoneNo = phoneNo;
+            this.emailId = emailId;
         }
-        else
-        {
-            return false;
-        }
-    }
-    /// <summary>
-    /// it is useful for searching and delete the contact
-    /// </summary>
-    /// <param name="Firstname"></param>
-    /// <returns></returns>
-    public bool remove(string Firstname)
-    {
-        Address  addr = find(Firstname);
 
-        if (addr != null)
+        public void setFname(string fname)
         {
-            addresses.Remove(addr);
-            return true;
+            this.fname = fname;
         }
-        else
+        public string getFname()
         {
-            return false;
+            return fname;
         }
-    }
-    /// <summary>
-    /// Displaying the Contacts
-    /// </summary>
-    /// <param name="action"></param>
-    public void list(Action<Address > action)
-    {
-        addresses.ForEach(action);
-    }
+        public void setLname(string lname)
+        {
+            this.lname = lname;
+        }
+        public string getLname()
+        {
+            return lname;
+        }
+        public void setAdd(string address)
+        {
+            this.address = address;
+        }
+        public string getAdd()
+        {
+            return address;
+        }
+        public void setCity(string city)
+        {
+            this.city = city;
+        }
+        public string getCity()
+        {
+            return city;
+        }
+        public void setState(string state)
+        {
+            this.state = state;
+        }
+        public string getState()
+        {
+            return state;
+        }
+        public void setZip(long zip)
+        {
+            this.zip = zip;
+        }
+        public long getZip()
+        {
+            return zip;
+        }
+        public void setPhoneNo(long phoneNo)
+        {
+            this.phoneNo = phoneNo;
+        }
+        public long getPhoneNo()
+        {
+            return phoneNo;
+        }
+        public void setEmailId(string emailId)
+        {
+            this.emailId = emailId;
+        }
+        public string getEmailId()
+        {
+            return emailId;
+        }
 
-    public bool isEmpty()
-    {
-        return (addresses.Count == 0);
-    }
-    /// <summary>
-    /// Finds the string with the First Name for Editing the details
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public Address  find(string name)
-    {
-        Address  addr = addresses.Find((a) => a.Firstname == name);
-        return addr;
+
+        public string toString()
+        {
+            return this.fname + " " + this.lname + " " + this.state;
+        }
+
     }
 }
