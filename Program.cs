@@ -205,12 +205,12 @@ namespace AddressBook
                         }
                         break;
                     /// <summary>
-                    /// UC9
-                    /// Ability to view Persons by City Maintain Dictionary of City and Person
+                    /// UC10
+                    /// Ability to Count Persons by City Maintain Dictionary of City and Person
                     /// </summary>
                     case 6:
-                        Console.WriteLine("Displaying contacts city wise");
-                        Dictionary<string, List<string>> sT = new Dictionary<string, List<string>>();
+                        Console.WriteLine("Displaying the count city wise");
+                        Dictionary<string, int> sT = new Dictionary<string, int>();
                         HashSet<string> states = new HashSet<string>();
                         foreach (Contact p in ContList)
                         {
@@ -226,17 +226,12 @@ namespace AddressBook
                                     temp.Add(c.getFname() + " " + c.getLname());
                                 }
                             }
-                            sT.Add(s, temp);
+                            int count = temp.Count;
+                            sT.Add(s, count);
                         }
-                        foreach (var contents in sT.Keys)
+                        foreach (KeyValuePair<string, int> kv in sT)
                         {
-                            Console.WriteLine("State: " + contents);
-                            Console.WriteLine("Contacts are...");
-
-                            foreach (var listMember in sT[contents])
-                            {
-                                Console.WriteLine(" member :" + listMember);
-                            }
+                            Console.WriteLine("The number of persons in {0} is {1} ", kv.Key, kv.Value);
                         }
                         break;
                     default:
